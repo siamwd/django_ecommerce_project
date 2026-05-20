@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    HOME
+{% endblock title %}
+   
+{% block content %}
+    <h5>NASA</h5>
+
+<a href="{% url 'django_authentication:logout' %}" class="btn btn-danger">Logout</a>
+
+{% endblock content %}
+  

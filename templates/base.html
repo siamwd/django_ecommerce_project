@@ -1,0 +1,29 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% tailwind_css %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %}
+        Home
+    {% endblock title %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+
+    
+        
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
+    {% include 'includes/nav.html' %}
+    <main class="mx-auto flex-grow max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div class="rounded-[32px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_20px_80px_rgba(15,23,42,0.08)] backdrop-blur-lg">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </main>
+    {% include 'includes/footer.html' %}
+</body>
+</html>

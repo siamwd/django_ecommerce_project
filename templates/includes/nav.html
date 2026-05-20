@@ -1,0 +1,62 @@
+{% load static %}
+<header>
+  <nav class="shadow-md shadow-cyan-400">
+    <div class="flex justify-between border-b border-black ">
+      <div class="flex ">
+        <div class="h-20 w-32  flex item-center justify-center ">
+         <img src="{% static 'image/elycart_logo.gif' %}" alt="" >
+        </div>
+        <a href="/" class="flex items-center justfy-center text-3xl font-medium  ">Ely Cart</a>
+      </div>
+     <div>
+      <div class="flex items-center justify-center gap-12">
+
+        
+        <!-- Cart column -->
+        <div class="flex flex-col items-center justify-center gap-1 mt-4">
+        <a href="{% url 'cart:cart_detail' %}" class="flex flex-col items-center">
+
+          <i class="fa-solid fa-cart-shopping text-4xl text-blue-400 "></i>
+          <h6 class="text-lg font-semibold ">Cart</h6>
+       </a>
+      </div>
+
+      <!-- Login button -->
+      <a href="{% url 'django_authentication:login' %}" class="px-12 py-3 bg-blue-500 text-white rounded mr-4 text-xl  hover:bg-blue-600 hover:shadow-lg
+               transition duration-300" >
+        Login
+    </a>
+
+    </div>
+  </div>
+
+  </nav>
+</header>
+<div id="offerBanner" class="bg-gray-100 px-4 py-2.5 gap-4 transition-all duration-500 ease-in-out overflow-hidden">
+  <div class="flex items-center justify-center flex-wrap gap-y-2 gap-x-6 pr-7 text-center relative">
+    <p class="text-[15px] text-slate-900 font-medium leading-relaxed">
+      🎉 Limited Time Offer! Enjoy 20% OFF your first purchase
+    </p>
+    <button type="button" class="bg-black text-white font-medium text-sm rounded-full px-4 py-2 cursor-pointer">
+      Get it now
+    </button>
+    <div class="absolute right-0 top-1">
+      <svg id="closeOffer" xmlns="http://www.w3.org/2000/svg" class="w-3.5 cursor-pointer fill-slate-900 inline-block" viewBox="0 0 320.591 320.591">
+        <path d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z"/>
+        <path d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<script>
+  const closeBtn = document.getElementById('closeOffer');
+  const banner = document.getElementById('offerBanner');
+
+  closeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    banner.classList.add('opacity-0', 'h-0', 'p-0', 'overflow-hidden');
+    setTimeout(() => banner.style.display = 'none', 500); // match duration-500
+  });
+</script>
+

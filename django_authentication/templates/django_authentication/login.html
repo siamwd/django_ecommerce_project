@@ -1,0 +1,61 @@
+{% extends '../base.html' %}
+
+{% block title %}
+    
+{% endblock title %}
+
+{% block content %}
+
+    <div class="flex items-center  justify-center min-h-screen ">
+        <div class="bg-white w-[40%] h-[80vh]  rounded-3xl shadow-xl p-10">
+        {% load static %}
+          <form action="" method="post">
+            {% csrf_token %}
+            {% if msg %}
+                <div class="bg-red-100  text-red-600 rounded-lg text-center px-4 py-2 ">{{msg}}</div>
+            {% endif %}
+            <div>            
+            
+            <div class="flex justify-center #hover:bg-orange-500 ">
+                <img src="{% static 'images/elycart_logo.gif' %}" alt="elycart logo " class="w-50 h-36">
+            </div> 
+            <div>
+                <h2 class=" text-4xl font-bold text-center">Welcome Back</h2>
+                <p class="text-gray-500  text-center">Please login to your acoount</p>
+            </div>
+            <div class=" space-y-4 mt-8">
+            <input type="text" name="username_or_email" placeholder="Enter your email or Username" class="w-full h-12 rounded-lg px-3 bg-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 {% if msg %} border border-red-500 {% endif %}">
+            <!-- {% if msg %}
+                <div class="text-sm text-red-500 ">invalid username_or_email</div>
+            {% endif %} -->
+            <div>
+            
+                
+            <input type="password" name="password" placeholder="Enter your password"
+                class="w-full h-12 px-3 bg-gray-100 rounded-lg {% if msg %} border border-red-500 {% endif %}  focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder-gray-400 ">
+            <div class="mt-1  text-right hover:underline">
+
+                <a href="">Forgot Passsword?</a></div>
+            </div>
+            </div>
+            
+            <button type="submit" class="w-full bg-orange-500 h-12 text-center p-3 mt-6 rounded-xl font-semibold text-white text-xl hover:bg-orange-600">Login</button>
+            
+            <div class="mt-6 flex items-center">
+            <div class="flex-1 h-0.5 bg-gray-200"></div>
+            <div class="mx-4 text-sm text-gray-500">Or Login with</div>
+            <div class="flex-1 h-0.5  bg-gray-300"></div>
+            </div>
+            <div class="mt-10 w-full flex justify-center ">
+            <p class="text-sm text-gray-500">Don't have an account? 
+                <a href="{%url 'django_authentication:register'%}"  class="font-bold ml-2 text-orange-500 hover:underline focus:outline-none focus:ring-2  focus:ring-orange-300 rounded">Signup</a>
+            </p>
+            </div>
+          </form>
+
+        </div>
+    </div>
+
+{% endblock content %}
+    
+    

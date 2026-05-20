@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{%block title%}My site{%endblock%}
+
+{%block content%}
+{% load static %}
+
+
+
+
+
+
+<div class="flex">
+  
+    <main class="w-5/6  mx-auto ">
+        
+	    <div class="bg-gray-500 relative max-w-5/6 mx-auto rounded-sm overflow-hidden h-96 flex items-center justify-center ml-12">
+			<div class="grid sm:grid-cols-2 gap-6 max-sm:gap-12 py-12 px-6">
+				<div class="bg-gradient-to-tr from-[#273284b6] to-[#1e1e60] px-4 py-8 text-center rounded-[30px] w-full max-w-[300px] h-max skew-x-[-10deg] mx-auto shadow-lg shadow-purple-400">
+				<span class="text-slate-300 text-4xl block">Big</span>
+				<span class="text-white text-7xl font-bold mt-0.5 block">Sale!</span>
+				<p class="text-slate-300 text-base mt-2 font-medium">Arriving this weekend</p>
+				</div>
+
+				<div class="text-center">
+				<h2 class="font-bold md:text-4xl text-3xl text-orange-500">Special 11.11 Offer</h2>
+				<h3 class="text-2xl text-orange-500 font-medium mt-2">Limited Time Deal</h3>
+				<p class="text-slate-900 text-lg mt-4">Discover amazing discounts and deals. Don't miss out on our exclusive offers.</p>
+
+				<button type="button" class="  bg-gray-900 hover:bg-orange-500 text-white  font-semibold text-[15px] py-2.5 px-5 rounded-lg w-max mt-8 cursor-pointer">
+					Shop Now
+				</button>
+				</div>
+			</div>
+			</div>
+            
+<div class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+  <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <p class="text-sm uppercase tracking-[0.24em] text-slate-400">Total Categories</p>
+    <p class="mt-4 text-3xl font-bold text-slate-900">{{ categories|length }}</p>
+    <p class="mt-2 text-sm text-slate-500">Active category collections featured on the homepage.</p>
+  </div>
+  <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <p class="text-sm uppercase tracking-[0.24em] text-slate-400">Total Products</p>
+    <p class="mt-4 text-3xl font-bold text-slate-900">{{ products|length }}</p>
+    <p class="mt-2 text-sm text-slate-500">Latest items available for purchase right now.</p>
+  </div>
+  <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <p class="text-sm uppercase tracking-[0.24em] text-slate-400">Best Picks</p>
+    <p class="mt-4 text-3xl font-bold text-slate-900">{{ products|slice:":3"|length }}</p>
+    <p class="mt-2 text-sm text-slate-500">Top featured products ready to inspire shoppers.</p>
+  </div>
+</div>
+
+    <h2 class="text-slate-900 text-xl font-bold mb-6">
+    Featured Categories
+    </h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+
+    {% for category in categories %}
+    <!-- Single Card -->
+    <a href="{% url 'products:category_products' category.slug %}"
+        class="featured-category-link group bg-white rounded-md p-1.5 shadow-sm hover:shadow-md transition overflow-hidden text-center">
+
+        <div class="aspect-square bg-gray-200 overflow-hidden relative">
+        <img src="{{ category.image.url }}"
+            alt="{{ category.name }}"
+            class="w-full h-full object-cover group-hover:scale-105 transition" />
+        <span class="absolute left-3 top-3 rounded-full bg-slate-900/80 px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">{{ category.products.count }} items</span>
+        </div>
+
+        <h6 class="text-sm font-bold text-slate-900 mt-3 truncate">
+        {{ category.name }}
+        </h6>
+        <p class="text-xs text-slate-500">Discover top products in this category.</p>
+
+    </a>
+    {% endfor %}
+
+    </div>
+</div>
+</div>
+<script>
+  document.querySelectorAll('.featured-category-link').forEach((link) => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const url = this.getAttribute('href');
+      if (url) {
+        window.location.href = url;
+      }
+    });
+  });
+</script>
+
+{% if category %}
+    <h2 class="font-bold mb-4">{{ category.name }} Products:</h2>
+{% else %}
+    <h2 class="font-bold mb-4">All Products:</h2>
+{% endif %}
+        
+<div class="bg-white p-4">
+            <div class="mx-auto w-auto">
+
+                <div class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+                {% for product in products %}
+                <a href="{% url 'products:product_detail' product.id product.slug %}">
+               
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm hover:-translate-y-1 hover:shadow-md transition">
+
+                    <div class="aspect-[12/11] bg-gray-100 rounded-lg p-2 overflow-hidden">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}"
+                        class="w-full h-full object-contain">
+                    {% else %}
+                    <p class="text-center text-sm text-gray-500">No image available</p>
+                    {% endif %}
+                    </div>
+
+                    <div class="p-4">
+                      <div class="flex items-center justify-between gap-3">
+                        <span class="rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{{ product.category.name }}</span>
+                        <span class="rounded-full px-2 py-1 text-xs font-semibold uppercase tracking-[0.18em] {{ product.available|yesno:'bg-emerald-100 text-emerald-700,bg-rose-100 text-rose-700' }}">
+                          {{ product.available|yesno:'In stock,Sold out' }}
+                        </span>
+                      </div>
+
+                      <div class="mt-4 flex items-start justify-between gap-4">
+                        <h5 class="text-lg font-semibold text-slate-900">
+                          {{ product.name }}
+                        </h5>
+                        <span class="text-lg font-bold text-slate-900">
+                          ${{ product.price }}
+                        </span>
+                      </div>
+
+                      <p class="text-slate-600 text-sm mt-3">
+                          {{ product.description|truncatewords:18 }}
+                      </p>
+
+                      <div class="mt-4 flex items-center justify-between text-xs text-slate-500">
+                        <span>Added {{ product.create_at|date:'M d, Y' }}</span>
+                        <span>{{ product.update_at|timesince }} ago</span>
+                      </div>
+                    </div>
+
+                </div>
+                </a>
+                {% endfor %}
+
+                </div>
+            </div>
+            </div>
+
+
+    </main>
+    
+</div>
+
+{%endblock%}
